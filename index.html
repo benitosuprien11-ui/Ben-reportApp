@@ -1,4 +1,401 @@
-<doctype htm>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiNa | Justice & Security Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    
+    <style>
+        :root {
+            --sidebar-width: 240px;
+        }
+
+        body {
+            font-size: .875rem;
+            background-color: #f8f9fa;
+        }
+
+        /* Fixed Navbar */
+        .navbar {
+            z-index: 1030;
+            box-shadow: 0 2px 4px rgba(0,0,0,.05);
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 70px 0 0; /* Height of navbar */
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #fff;
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 767.98px) {
+            .sidebar {
+                position: static;
+                padding-top: 0;
+                display: none; /* Controlled by .show class via Bootstrap collapse */
+            }
+            .sidebar.show {
+                display: block;
+            }
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #0d6efd;
+            background-color: rgba(13, 110, 253, 0.05);
+        }
+
+        /* Card Heights & Spacing */
+        .card {
+            height: 100%;
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+
+        .card-header {
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        main {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top p-2">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">LiNa Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-white">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="bi bi-house-door"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-shield-exclamation"></i> Crimes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#Crmes">
+                                <i class="bi bi-eye"></i> Mental Security
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#mental">
+                                <i class="bi bi-file-earmark-text"></i> Reports
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="p-3">
+                        <a class="btn btn-sm btn-primary w-100" href="#">Contact Support</a>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Security Overview</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <span class="badge bg-info text-dark p-2">Haiti | 2026-04-25</span>
+                    </div>
+                </div>
+
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-4">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header bg-secondary text-white">Incident Hosting</div>
+                            <div class="card-body">
+                                <h6 class="card-title text-muted">Mind Movement Issues</h6>
+                                <p class="h4 text-success">18.2% ↑</p>
+                                <button class="btn btn-sm btn-outline-danger w-100 mt-2">Action Required</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header bg-info text-white" id="mental">Mental Perception</div>
+                            <div class="card-body">
+                                <ul class="small ps-3">
+                                    <li>Perimeter monitoring</li>
+                                    <li>Wall transparency checks</li>
+                                </ul>
+                                <p class="card-text text-success fw-bold">4.6% ↑</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" >
+                        <div class="card">
+                            <div class="card-header bg-warning">Life Safety</div>
+                            <div class="card-body">
+                                <p class="card-text">Status: Critical Monitoring</p>
+                                <p class="text-danger fw-bold">2.6% ↓ (Activity)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    
+          <div class="col">
+         <div class="card">
+               <div class="card-header bg-primary text-white">Infrastructure
+                    </div>
+                     <p>
+                There are small mind, small thoights and small human bodies.
+                    </p>
+         
+                </div>
+                
+                
+         <div class="col-12 col-xl-4">
+     <div class="card">
+                            <h5 class="card-header bg-warning" id="civk" style="margin-top:300px">Information for Civic and the society</h5>
+              <div class="card-body">
+         <ol>
+          <li> <h5 class="card-title">
+      Droit à la Securité
+  </h5></li>
+  <p class="card-text">
+      La liberté, le secret de la corresponce et de toute correspondance et de toutes les autres formes de communicstion sont inviolables.
+      Tout citoyen a droit a autodefence armée dans les limites de son domicile, mais il n'a pas le droit port d'armes sans autorization du chef de la police.
+  </p>
+  <li>
+  <h5 class="card-title">
+      Droit a la vie,à la santé et au respect
+  </h5>
+  <p class="card-text">
+    L'etat dpot garantir à tous les citoyens le droit à la vie, à la santé et au respect de la personne humaine. Il crée des hopitaux, des centres de santé et des dispensaire.Il reconnait à tous les citoyens le droit à un logement décent, à l'education , à l'alimentation et à la securité sociale.
+  </p>
+  </li>
+  <li><h5 class="card-title">
+      La liberté individuelle
+  </h5>
+<p class="card-text">
+    Null ne peut être poursuivi,arrêté ou detenu excepté dans les cas prevus lar la loi.
+    Pour arreter une personne,il faut un mandat d'arret ecrit en creole et en français par un fonctionaire qui a reçu ce pouvoir.
+    On ne peut effectuer une arrestation, ni une perquisotion entre six heures du soir et sic heures du matin, sauf  le cas prevu par la loi. Aucune visitr domicilaire,aucune de papier ne peut avoir lieu qu'en vertu de la loi.Null ne peut être arrêté à la place d'un autre. Null ne peut être detenu plus que 48 heures s'il n'a pas paru devant le juge qui statue sur son cas.
+</p></li>
+<li><h5 class="card-title">
+    La liberté d'éxpression</h5>
+    <p class="card-text">
+    Tout haitien a le droit d'exprimer librement ses opinions en toute matière et par le moyen qu'il choisit.
+</p>
+<li>
+<h5 class="card-title">
+    Droit a l'education et a l'instruction</h5>
+    <p class="card-text">
+      L'Etat garantit le droit a l'education. Il met l'ecole gratuitement a la portee de tous. L'enseignement est libre a tous les degres.Cette liberte s'exerce sous le controle de l'Etat. L'enseignement est libre a tous les degres. Cette s'excerce sous le controle de l'Etat.
+      L'enseingnement primaire est obligatoire et les fournitures classiques seront fournies gratuitement par l'Etat.
+      L'enseignant a droit a un salaire de base equitable.
+    </p>
+</li>
+</h5></li>
+
+<li>
+    <h5 class="card-title">
+        Liberte du travail</h5>
+        <p class="card-text">
+           Tout citoyen doit se consacrer a un travaik de son choix. Tout employe a droit a un juste salaire, au repos, au conge annuel paye et au bonus.
+           </p>
+</li>
+  </ol>
+  
+ <div id="traffic-chart">
+     
+ </div>
+                            </div>
+              </div>
+                    </div>
+                
+                <br>
+
+                <div class="card mb-4">
+                    <div class="card-header">Latest Incident Logs</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Location</th>
+                                        <th>Time</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>CRLDI (ONI)</td>
+                                        <td>12:00 PM</td>
+                                        <td>Psychological</td>
+                                        <td><span class="badge bg-warning">Reviewing</span></td>
+                                        <td><!--<button class="btn btn-sm btn-primary view-btn">View</button></td>-->
+     <button class="btn btn-sm btn-primary view-btn" 
+        data-location="Delmas 65" 
+        data-time="10:52 AM" 
+        data-commune="Delmas" 
+        data-type="Physical Aggression" 
+        data-desc="Attacks involving mental and physical aggression, including domestic violence and harassment at the residence.">
+    View
+</button>
+
+    </tr>
+    <tr>
+      <td>Delmas 65</td>
+     <td>10:52 AM</td>
+     <td>Physical/Mental</td>
+  <td><span class="badge bg-danger">Urgent</span></td>
+      <td><!--<button class="btn btn-sm btn-primary view-btn">View</button></td>-->
+        p<button class="btn btn-sm btn-primary view-btn" 
+        data-location="Delmas 65" 
+        data-time="10:52 AM" 
+        data-commune="Delmas" 
+        data-type="Physical Aggression" 
+        data-desc="Attacks involving mental and physical aggression, including domestic violence and harassment at the residence.">
+    View
+</button>
+</tr>
+    </tbody>
+          </table>
+          </div>
+        </div>
+        
+      </div>
+                
+            </main>
+        </div>
+    </div>
+    
+    
+    
+    
+    <!-- The data table-->
+    
+    <tr>
+    <td>CRLDI(ONI)</td>
+    <td>April 22, 2026</td>
+    <td>Mental/Psychological</td>
+    <td>
+        <button class="btn btn-sm btn-primary view-btn" 
+            data-location="CRLDI(ONI)" 
+            data-time="12-13h PM" 
+            data-commune="Delmas" 
+            data-type="Mental, psychologique"
+            data-desc="Description of psychological and mental pressure encountered at the CRLDI office.">View</button></td>
+</tr>
+
+<tr>
+    <td>Belmart, Mikado</td>
+    <td>Nov 22, 2025</td>
+    <td>ID Theft</td>
+    <td><button class="btn btn-sm btn-primary view-btn" 
+            data-location="Belmart, Mikado" 
+            data-time="9:00 AM" 
+            data-commune="Delmas" 
+            data-type="Theft of identity documents"
+            data-desc="Reported theft of personal identification documents by visitors or employees at the Mikado location.">View</button></td>
+</tr>
+
+   <div class="modal fade" id="incidentModal" tabindex="-1" aria-labelledby="incidentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title" id="incidentModalLabel">Incident Details</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Location:</strong> <span id="modalLocation"></span></p>
+                <p><strong>Time/Date:</strong> <span id="modalTime"></span></p>
+            </div>
+        
+     <div class="col-md-6">
+                <p><strong>Type:</strong> <span id="modalType"></span></p>
+                <p><strong>Commune:</strong> <span id="modalCommune"></span></p>
+            </div>
+        </div>
+        <hr>
+        <h6>Description of Event:</h6>
+        <div class="p-3 bg-light border rounded" id="modalDescription">
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Download Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    
+    
+    <script>
+    
+    document.addEventListener('click', function (event) {
+    // 1. Identify if the clicked element is our 'View' button
+    const viewBtn = event.target.closest('.view-btn');
+    
+    if (viewBtn) {
+        event.preventDefault();
+
+        // 2. Extract data from the button's attributes
+        // These match the data- attributes in your HTML tags
+        const data = {
+            location: viewBtn.getAttribute('data-location') || 'N/A',
+            time: viewBtn.getAttribute('data-time') || 'N/A',
+            commune: viewBtn.getAttribute('data-commune') || 'N/A',
+            type: viewBtn.getAttribute('data-type') || 'N/A',
+            desc: viewBtn.getAttribute('data-desc') || 'No description provided.'
+        };
+
+        // 3. Inject the data into the Modal elements
+        document.getElementById('modalLocation').innerText = data.location;
+        document.getElementById('modalTime').innerText = data.time;
+        document.getElementById('modalCommune').innerText = data.commune;
+        document.getElementById('modalType').innerText = data.type;
+        document.getElementById('modalDescription').innerText = data.desc;
+
+        // 4. Trigger the Modal using Bootstrap 5 syntax
+        const modalElement = document.getElementById('incidentModal');
+        const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+        modalInstance.show();
+    }
+});
+
+      
+    </script>
+    
+    </body>
 
 </html>
